@@ -1,19 +1,17 @@
-﻿using System.Data;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using ClosedXML.Excel;
-using ExcelDataReader;
 using OfficeOpenXml;
 
-//ReadViaClosedXml();
+ReadViaClosedXml();
 ReadViaEPPlus();
 
 static void ReadViaClosedXml()
 {
     Console.WriteLine("ReadViaClosedXml");
-    var stopWatch = new System.Diagnostics.Stopwatch();
+    var stopWatch = new Stopwatch();
     stopWatch.Start();
 
-    var workBook = new XLWorkbook("sample.xlsx", XLEventTracking.Disabled);
+    var workBook = new XLWorkbook("sample.xlsx");
     var workSheet = workBook.Worksheet("依頼登録");
     var firstRow = 6;
     var maxRow = 40;
@@ -90,40 +88,3 @@ static (TimeSpan elapsed, string? lastText) ReadText(int firstRow, int maxRow, i
     stopWatch.Stop();
     return (stopWatch.Elapsed, text);
 }
-
-
-// static void ReadViaExcelDataReader()
-// {
-//     using var stream = File.Open("sample.xlsx", FileMode.Open, FileAccess.Read);
-//     using var reader = ExcelReaderFactory.CreateReader(stream);
-//     var result = reader.AsDataSet(new ExcelDataSetConfiguration
-//     {
-//         UseColumnDataType = true,
-//         ConfigureDataTable = (_) => new ExcelDataTableConfiguration { UseHeaderRow = true }
-//     });
-
-//     var table = result.Tables;
-//     var resultTable = table["依頼登録"];
-//     for (var row = firstRow; row < maxRow; row++)
-//     {
-//         for (var column = firstColumn; column < maxColumn; column++)
-//         {
-//             resultTable.
-//             var cell = workSheet.Cell(row, column);
-//             Console.WriteLine($"row: {row}, column: {column}, value: {cell.Value}");
-//         }
-//     }
-
-//     do
-//     {
-//         while (reader.Read())
-//         {
-
-//             // reader.GetDouble(0);
-//         }
-//     } while (reader.NextResult());
-
-//     // 2. Use the AsDataSet extension method
-
-//     // The result of each spreadsheet is in result.Tables
-// }
