@@ -1,6 +1,6 @@
 {
   "name": "C# (.NET)",
-  "image": "mcr.microsoft.com/devcontainers/dotnet:1-8.0",
+  "image": "mcr.microsoft.com/devcontainers/base:jammy",
   "customizations": {
     "vscode": {
       "extensions": [
@@ -14,10 +14,13 @@
     }
   },
   "features": {
+    "ghcr.io/devcontainers/features/dotnet:2": {
+      "version": "8.0"
+    },
     "ghcr.io/devcontainers/features/github-cli:1": {
       "installDirectlyFromGitHubRelease": true,
       "version": "latest"
     }
   },
-  "postCreateCommand": "gh extension install github/gh-copilot"
+  "postCreateCommand": "git config --global --add safe.directory ${containerWorkspaceFolder}"
 }
